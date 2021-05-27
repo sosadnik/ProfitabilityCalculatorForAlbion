@@ -12,10 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipesIterationService {
 
-    private final CalculatorService calculatorService;
-
-    public List<CraftingRecipes> itemNameIterator() {
-        CraftingRecipes recipes = calculatorService.getRecipes();
+    public List<CraftingRecipes> iterationCraftingRecipes(CraftingRecipes recipes) {
         List<CraftingRecipes> recipesList = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
@@ -29,21 +26,12 @@ public class RecipesIterationService {
             recipesList.add(
                     CraftingRecipes.builder()
                             .name(iterationString(recipes.getName(), i))
-                            .itemValue(incrementrationItemValuePerTier(recipes.getItemValue(), i))
+                            .itemValue(incrementationItemValuePerTier(recipes.getItemValue(), i))
                             .ingredients(ingredientsList)
                             .amountIngredients(recipes.getAmountIngredients())
                             .build());
         }
-        return recipesList;
-    }
-
-    public Integer incrementationAmountIngredients(Integer amount, Integer iterator) {
-        if (iterator > 3) {
-            return amount + 3;
-        } else if (amount == 1) return amount;
-        else {
-            return amount + iterator;
-        }
+        return addLevelItem(recipesList);
     }
 
     public List<CraftingRecipes> addLevelItem(List<CraftingRecipes> list) {
@@ -69,6 +57,15 @@ public class RecipesIterationService {
         return craftingRecipesList;
     }
 
+    public Integer incrementationAmountIngredients(Integer amount, Integer iterator) {
+        if (iterator > 3) {
+            return amount + 3;
+        } else if (amount == 1) return amount;
+        else {
+            return amount + iterator;
+        }
+    }
+
     public Integer incrementationItemValuePerLevel(Integer itemValue, Integer iterator) {
         for (int i = 0; i < iterator + 1; i++) {
             itemValue = Math.toIntExact(Math.round(itemValue * 2.015));
@@ -76,7 +73,7 @@ public class RecipesIterationService {
         return Math.round(itemValue);
     }
 
-    public Integer incrementrationItemValuePerTier(Integer itemValue, Integer iterator) {
+    public Integer incrementationItemValuePerTier(Integer itemValue, Integer iterator) {
         for (int i = 0; i < iterator; i++) {
             itemValue = Math.toIntExact(Math.round(itemValue * 2.015));
         }

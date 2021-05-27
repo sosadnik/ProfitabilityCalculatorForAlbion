@@ -7,6 +7,8 @@ import org.ProfitablilityCalculatorForAlbion.repository.CraftingRecipesRepositor
 import org.ProfitablilityCalculatorForAlbion.repository.IngredientsRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CraftingRecipesService {
@@ -24,5 +26,15 @@ public class CraftingRecipesService {
                 ingredientsRepository.save(ingredients);
             }
         }
+    }
+
+    public List<CraftingRecipes> getCraftingRecipesListForCategory(String categoryName) {
+        List<CraftingRecipes> craftingRecipesList = craftingRecipesRepository.findByCategory(categoryName);
+        return craftingRecipesList;
+    }
+
+    public List<CraftingRecipes> getCraftingRecipesListForItem(String item) {
+        List<CraftingRecipes> craftingRecipesList = craftingRecipesRepository.findByName(item);
+        return craftingRecipesList;
     }
 }

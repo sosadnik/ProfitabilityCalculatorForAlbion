@@ -16,14 +16,33 @@ public class ProfitabilityCheckService {
 
     private final CalculatorService calculatorService;
     private final RecipesIterationService recipesIterationService;
+    private final CraftingRecipesService craftingRecipesService;
 
-    public List<ProfitabilityMeter> sortByProfitability(List<CraftingRecipes> recipesList) {
-
+    public List<ProfitabilityMeter> getProfitabilityListForItem(String item) {
         List<ProfitabilityMeter> profitabilityMeterList = new ArrayList<>();
-        for (CraftingRecipes recipes: recipesList){
-           profitabilityMeterList.add(calculatorService.costCalculator(recipes));
-        }
 
+        for (CraftingRecipes recipes : craftingRecipesService.getCraftingRecipesListForItem(item)) {
+            getIterationRecipesList(profitabilityMeterList, recipes);
+        }
+        return sortByProfitability(profitabilityMeterList);
+    }
+
+    public List<ProfitabilityMeter> getProfitabilityListForCategory(String categoryName) {
+        List<ProfitabilityMeter> profitabilityMeterList = new ArrayList<>();
+
+        for (CraftingRecipes recipes : craftingRecipesService.getCraftingRecipesListForCategory(categoryName)) {
+            getIterationRecipesList(profitabilityMeterList, recipes);
+        }
+        return sortByProfitability(profitabilityMeterList);
+    }
+
+    public void getIterationRecipesList(List<ProfitabilityMeter> profitabilityMeterList, CraftingRecipes recipes) {
+        for (CraftingRecipes iterationRecipes : recipesIterationService.iterationCraftingRecipes(recipes)) {
+            profitabilityMeterList.add(calculatorService.costCalculator(iterationRecipes));
+        }
+    }
+
+    private List<ProfitabilityMeter> sortByProfitability(List<ProfitabilityMeter> profitabilityMeterList) {
         return profitabilityMeterList.stream()
                 .sorted(Comparator.comparing(ProfitabilityMeter::getDifferencesCostHigherPrice))
                 .collect(Collectors.toList());

@@ -28,12 +28,6 @@ public class ProfitabilityMeter {
     public double getDifferencesCostHigherPrice() {
         double sum = this.higherPrice - this.cost;
         sum = sum + this.cost;
-        double i = (sum / this.cost) * 100;
-        System.out.println("suma: ");
-        System.out.println(sum);
-        System.out.println("suma/ cost: ");
-        System.out.println(i);
-        System.out.println("\n");
-        return i;
+        return (sum / this.cost) * 100;
     }
 }
