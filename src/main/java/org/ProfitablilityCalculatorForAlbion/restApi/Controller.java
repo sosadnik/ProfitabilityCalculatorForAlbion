@@ -2,10 +2,11 @@ package org.ProfitablilityCalculatorForAlbion.restApi;
 
 import lombok.RequiredArgsConstructor;
 import org.ProfitablilityCalculatorForAlbion.model.ProfitabilityMeter;
+import org.ProfitablilityCalculatorForAlbion.restApi.requestModel.CraftingRecipesRequest;
+import org.ProfitablilityCalculatorForAlbion.service.CraftingRecipesService;
 import org.ProfitablilityCalculatorForAlbion.service.ProfitabilityCheckService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class Controller {
 
     private final ProfitabilityCheckService profitabilityCheckService;
+    private final CraftingRecipesService craftingRecipesService;
 
     @RequestMapping("/getProfitabilityListForItem/{itemName}")
     public List<ProfitabilityMeter> getProfitabilityList(@PathVariable String itemName) {
@@ -23,5 +25,11 @@ public class Controller {
     @RequestMapping("/getProfitabilityListForCategory/{category}")
     public List<ProfitabilityMeter> getProfitabilityListForCategory(@PathVariable String category) {
         return profitabilityCheckService.getProfitabilityListForCategory(category);
+    }
+
+    @PostMapping("/createCraftingRecipes")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void createRecipes(@RequestBody CraftingRecipesRequest craftingRecipes) {
+        craftingRecipesService.saveCraftingRecipesRequest(craftingRecipes);
     }
 }

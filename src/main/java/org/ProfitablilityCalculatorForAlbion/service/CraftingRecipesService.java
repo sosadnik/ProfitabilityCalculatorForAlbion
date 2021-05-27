@@ -5,6 +5,7 @@ import org.ProfitablilityCalculatorForAlbion.model.CraftingRecipes;
 import org.ProfitablilityCalculatorForAlbion.model.Ingredients;
 import org.ProfitablilityCalculatorForAlbion.repository.CraftingRecipesRepository;
 import org.ProfitablilityCalculatorForAlbion.repository.IngredientsRepository;
+import org.ProfitablilityCalculatorForAlbion.restApi.requestModel.CraftingRecipesRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class CraftingRecipesService {
 
     private final CraftingRecipesRepository craftingRecipesRepository;
     private final IngredientsRepository ingredientsRepository;
+    private final CraftingRecipesMapper craftingRecipesMapper;
 
     public void save(CraftingRecipes craftingRecipes) {
         if (!craftingRecipesRepository.existsByName(craftingRecipes.getName())) {
@@ -28,13 +30,17 @@ public class CraftingRecipesService {
         }
     }
 
+    public void saveCraftingRecipesRequest(CraftingRecipesRequest craftingRecipesRequest){
+        save(craftingRecipesMapper.map(craftingRecipesRequest));
+    }
+
     public List<CraftingRecipes> getCraftingRecipesListForCategory(String categoryName) {
-        List<CraftingRecipes> craftingRecipesList = craftingRecipesRepository.findByCategory(categoryName);
-        return craftingRecipesList;
+        return craftingRecipesRepository.findByCategory(categoryName);
     }
 
     public List<CraftingRecipes> getCraftingRecipesListForItem(String item) {
-        List<CraftingRecipes> craftingRecipesList = craftingRecipesRepository.findByName(item);
-        return craftingRecipesList;
+        return craftingRecipesRepository.findByName(item);
     }
+
+
 }

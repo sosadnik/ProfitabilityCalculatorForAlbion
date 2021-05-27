@@ -17,7 +17,6 @@ import java.util.List;
 public class CalculatorService {
 
     private final AlbionDataClient albionDataClient;
-    private final CraftingRecipesService craftingRecipesService;
 
     public ProfitabilityMeter costCalculator(CraftingRecipes craftingRecipes) {
 
@@ -64,23 +63,6 @@ public class CalculatorService {
         return propertyList.stream()
                 .max(Comparator.comparing(ItemProperty::getPrice))
                 .get();
-    }
-
-    public CraftingRecipes getRecipes() {
-        List<Ingredients> ingredientsList = new ArrayList<>();
-        ingredientsList.add(new Ingredients("T5_ORE", 3));
-        ingredientsList.add(new Ingredients("T4_METALBAR", 1));
-
-        CraftingRecipes build = CraftingRecipes.builder()
-                .itemValue(30)
-                .category("Resource")
-                .name("T5_METALBAR")
-                .amountIngredients(2)
-                .ingredients(ingredientsList)
-                .build();
-
-        craftingRecipesService.save(build);
-        return build;
     }
 
     public List<ItemProperty> getListItem(String itemName) {
