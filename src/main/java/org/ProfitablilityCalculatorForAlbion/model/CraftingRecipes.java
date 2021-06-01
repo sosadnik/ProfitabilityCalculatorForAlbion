@@ -34,6 +34,12 @@ public class CraftingRecipes {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "craftingRecipes")
     private List<Ingredients> ingredients;
 
-
+    public CraftingRecipes(String name, Integer amountIngredients, Integer itemValue, String category, List<Ingredients> ingredients) {
+        this.name = name;
+        this.amountIngredients = amountIngredients;
+        this.itemValue = itemValue;
+        this.category = category;
+        this.ingredients = ingredients;
+    }
 }
 

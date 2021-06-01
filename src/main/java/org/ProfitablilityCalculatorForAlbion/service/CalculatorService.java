@@ -19,7 +19,6 @@ public class CalculatorService {
     private final AlbionDataClient albionDataClient;
 
     public ProfitabilityMeter costCalculator(CraftingRecipes craftingRecipes) {
-
         List<SourceIngredients> list = new ArrayList<>();
 
         for (Ingredients pair : craftingRecipes.getIngredients()) {
@@ -36,7 +35,6 @@ public class CalculatorService {
                 .higherPrice(findHighestPrice(craftingRecipes.getName()).getPrice())
                 .city(findHighestPrice(craftingRecipes.getName()).getCity())
                 .build();
-
     }
 
     public double getTotalCost(List<SourceIngredients> list, Integer itemValue) {
@@ -45,7 +43,6 @@ public class CalculatorService {
                 .mapToInt(Integer::intValue).sum();
 
         return (sum * 0.63) + (itemValue * (1 / 20) * 100);
-
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
@@ -67,7 +64,7 @@ public class CalculatorService {
 
     public List<ItemProperty> getListItem(String itemName) {
 
-        String locations = "Bridgewatch,Martlock,Lymhurst,Lymhurst,Thetford";
+        String locations = "Bridgewatch,Martlock,Lymhurst,Thetford,Fort Sterling";
         ItemDto[] priceClientItem = albionDataClient.getItem(itemName, locations, "1");
 
         List<ItemProperty> itemPropertyList = new ArrayList<>();
