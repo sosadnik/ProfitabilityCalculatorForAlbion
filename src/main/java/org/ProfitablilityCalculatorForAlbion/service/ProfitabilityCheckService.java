@@ -37,7 +37,7 @@ public class ProfitabilityCheckService {
     }
 
     public void getIterationRecipesList(List<ProfitabilityMeter> profitabilityMeterList, CraftingRecipes recipes) {
-        for (CraftingRecipes iterationRecipes : recipesIterationService.iterationCraftingRecipes(recipes)) {
+        for (CraftingRecipes iterationRecipes : recipesIterationService.getListFromRecipeIterations(recipes)) {
             profitabilityMeterList.add(calculatorService.costCalculator(iterationRecipes));
         }
     }

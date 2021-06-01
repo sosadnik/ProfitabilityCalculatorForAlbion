@@ -30,4 +30,12 @@ public class Ingredients {
         this.name = name;
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredients{" +
+                "name='" + name + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

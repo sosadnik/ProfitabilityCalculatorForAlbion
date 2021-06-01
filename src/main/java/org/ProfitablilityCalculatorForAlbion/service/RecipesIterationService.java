@@ -12,20 +12,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipesIterationService {
 
-    public List<CraftingRecipes> iterationCraftingRecipes(CraftingRecipes recipes) {
+    public List<CraftingRecipes> getListFromRecipeIterations(CraftingRecipes recipes) {
         List<CraftingRecipes> recipesList = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
             List<Ingredients> ingredientsList = new ArrayList<>();
             for (Ingredients x : recipes.getIngredients()) {
                 ingredientsList.add(Ingredients.builder()
-                        .name(iterationString(x.getName(), i))
+                        .name(iterationTierInName(x.getName(), i))
                         .amount(incrementationAmountIngredients(x.getAmount(), i))
                         .build());
             }
             recipesList.add(
                     CraftingRecipes.builder()
-                            .name(iterationString(recipes.getName(), i))
+                            .name(iterationTierInName(recipes.getName(), i))
                             .itemValue(incrementationItemValuePerTier(recipes.getItemValue(), i))
                             .ingredients(ingredientsList)
                             .amountIngredients(recipes.getAmountIngredients())
@@ -84,7 +84,7 @@ public class RecipesIterationService {
         return itemName + "_LEVEL" + (iterator + 1) + "@" + (iterator + 1);
     }
 
-    public String iterationString(String itemName, Integer iterator) {
+    public String iterationTierInName(String itemName, Integer iterator) {
         Integer actualValue = Integer.valueOf(itemName.substring(1, 2));
 
         return itemName.replaceFirst("[0-9]", String.valueOf(actualValue + iterator));

@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "crafting_recipes")
 public class CraftingRecipes {
 
@@ -38,8 +39,18 @@ public class CraftingRecipes {
         this.name = name;
         this.amountIngredients = amountIngredients;
         this.itemValue = itemValue;
-        this.category = category;
         this.ingredients = ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return "CraftingRecipes{" +
+                "name='" + name + '\'' +
+                ", amountIngredients=" + amountIngredients +
+                ", itemValue=" + itemValue +
+                ", category='" + category + '\'' +
+                ", ingredients=" + ingredients +
+                '}';
     }
 }
 
