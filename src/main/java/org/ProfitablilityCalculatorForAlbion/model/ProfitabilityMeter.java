@@ -13,10 +13,10 @@ import java.util.List;
 @EqualsAndHashCode
 public class ProfitabilityMeter {
 
-    private Double cost;
-    private Integer higherPrice;
-    private String city;
-    private List<SourceIngredients> ingredients;
+    private final Double cost;
+    private final Integer higherPrice;
+    private final String city;
+    private final List<SourceIngredients> ingredients;
 
 
     @Override
@@ -29,9 +29,9 @@ public class ProfitabilityMeter {
                 '}' + "\n";
     }
 
-    public double getDifferencesCostHigherPrice() {
+    public double getProfitability() {
         double sum = this.higherPrice - this.cost;
         sum = sum + this.cost;
-        return (sum / this.cost) * 100;
+        return ((sum / this.cost) * 100) - 100;
     }
 }

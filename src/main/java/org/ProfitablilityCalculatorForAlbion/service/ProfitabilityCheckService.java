@@ -44,7 +44,7 @@ public class ProfitabilityCheckService {
 
     private List<ProfitabilityMeter> sortByProfitability(List<ProfitabilityMeter> profitabilityMeterList) {
         return profitabilityMeterList.stream()
-                .sorted(Comparator.comparing(ProfitabilityMeter::getDifferencesCostHigherPrice))
+                .sorted(Comparator.comparing(ProfitabilityMeter::getProfitability))
                 .collect(Collectors.toList());
     }
 

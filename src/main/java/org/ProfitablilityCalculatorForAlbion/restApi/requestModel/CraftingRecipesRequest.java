@@ -11,14 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 public class CraftingRecipesRequest {
 
-    private String name;
+    private final String name;
 
-    private Integer amountIngredients;
+    private final Integer amountIngredients;
 
-    private Integer itemValue;
+    private final Integer itemValue;
 
-    private String category;
+    private final String category;
 
-    private List<IngredientsRequest> ingredients;
+    private final List<IngredientsRequest> ingredients;
 
 }
